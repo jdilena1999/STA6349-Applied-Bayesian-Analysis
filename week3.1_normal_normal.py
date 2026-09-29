@@ -1,0 +1,84 @@
+
+import pandas as pd
+from distributions import normal_pdf,pnorm
+import numpy as np
+import matplotlib.pyplot as plt
+from expectations import x,normal_variance,normal_expectation
+from math import factorial
+
+# Normal-Normal Model
+## mean is between 6 & 7
+## sample of n = 25
+## for now, assume std = 0.5
+
+prior_mu = 6.5
+prior_std = 0.4
+plausible_range = (prior_mu-2*prior_std,prior_mu+2*prior_std)
+print(plausible_range)
+#plt.plot(np.linspace(5,8,1001),[normal_pdf(x,prior_mu,prior_std) for x in np.linspace(5,8,1001)],label='Prior',color='yellow')
+#plt.grid(visible=True)
+#plt.show()
+x_var = x
+'''for s,r in zip([5],[10]):
+    xs = np.linspace(0,25,1001)
+    ys = [gamma_pdf(a,s,1/r) for a in xs]
+    plt.plot(xs,ys)
+    #plt.ylim(top=1)
+    plt.title(f"shape: {s} | rate: {r}")
+    plt.grid(visible=True)
+    plt.show()'''
+    
+
+    
+def update_prior(prior_mu,prior_std,data_std,y_bar,n,df):
+    prior_var = prior_std**2
+    data_var = data_std**2
+    new_mu_1 = prior_mu*(data_var/(n*prior_var+data_var))
+    new_mu_2 = y_bar*(n*prior_var/(n*prior_var+data_var))
+    new_mu = new_mu_1+new_mu_2
+    new_sd = (prior_var*data_var)/(n*prior_var+data_var)
+
+    #new_mean = gamma_expectation(x_var,new_alpha,new_beta)
+    df['mu'].append(new_mu)
+    df['sd'].append(np.sqrt(new_sd))
+    df['var'].append(new_sd)
+    df['model'].append(f"posterior {len(df['model'])}")
+    #df['variance'].append(normal_variance(new_mu,new_sd))
+    #df['mean'].append(normal_expectation(x_var,new_mu,new_sd))
+    #df['probability'].append(poisson_joint_probability(ys,lam))
+    return (new_mu,new_sd)
+
+
+
+
+results = {
+    'mu':[prior_mu],
+    'var':[prior_std**2],
+    'sd':[prior_std],
+    'model':['prior'],
+    #'mean':[normal_expectation(x_var,6.5,0.4)],
+    #'variance':[normal_variance(6.5,0.4)],
+    #'probability':[0]
+}
+data = pd.read_csv("football.csv")
+data_mu = data[data['group'].isin(["fb_concuss"])]['volume'].mean()
+
+posterior_new = update_prior(prior_mu,prior_std,0.5,data_mu,25,results)
+print(pd.DataFrame(results))
+#print(posterior_new)
+prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(5,8,1001)]
+posterior = [normal_pdf(x,results['mu'][1],results['sd'][1]) for x in np.linspace(5,8,1001)]
+data = data[data['group'].isin(["fb_concuss"])]['volume']
+#print(data)
+#print(update_prior(10,2,ys,results,lam))
+#print(pd.DataFrame(results))
+
+plt.plot(np.linspace(5,8,1001),prior,label="Prior",color='yellow')
+plt.hist(data,label='data',color='blue',density=True,bins=30)
+plt.plot(np.linspace(5,8,1001),posterior,label='Posterior',color='green')
+plt.legend()
+plt.show()
+
+#plt.plot(data[data['group'].isin(["fb_concuss"])]['volume'],[normal_pdf(x,data[data['group'].isin(["fb_concuss"])]['volume'].mean(),data[data['group'].isin(["fb_concuss"])]['volume'].std()) for x in data[data['group'].isin(["fb_concuss"])]['volume']],label='Data',color='blue')
+#plt.legend()
+#plt.show()
