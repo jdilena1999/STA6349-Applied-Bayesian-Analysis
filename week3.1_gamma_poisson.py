@@ -27,7 +27,7 @@ x_var = x
     # s+= sum of all ys,
     # r+=n
 
-data = pd.read_excel("./Week_6/data.xlsx")['incidents'].to_numpy()      # New Data
+#data = pd.read_excel("./Week_6/data.xlsx")['incidents'].to_numpy()      # New Data
 #data = [6,2,2,1]
 
 def poisson_joint_probability(ys,lam):
@@ -41,7 +41,6 @@ def poisson_joint_probability(ys,lam):
         start = start*l
     return start
 
-lam = 3
     
 def update_prior(prior_s,prior_r,new_ys,df,lam):
     sum_y = np.sum(new_ys)
@@ -57,35 +56,39 @@ def update_prior(prior_s,prior_r,new_ys,df,lam):
     df['r'].append(new_r)
     df['model'].append(f"posterior {len(df['model'])}")
     df['variance'].append(gamma_variance(new_s,1/new_r))
+    df['SD'].append(np.sqrt(float(gamma_variance(new_s,1/new_r))))
     df['mean'].append(gamma_expectation(x_var,new_s,1/new_r))
     df['probability'].append(poisson_joint_probability(new_ys,lam))
     return (new_s,new_r)
 
 
 
-
-results = {
-    's':[1],
-    'r':[1],
-    'model':['prior'],
-    'mean':[gamma_expectation(x_var,1,1)],
-    'variance':[gamma_variance(1,1)],
-    'probability':[0]
-}
-posterior_new = update_prior(1,1,data,results,lam)
-#print(posterior_new)
-prior = [gamma_pdf(x,1,1) for x in np.linspace(0,11,1001)]
-data = [poisson_pdf(x,lam)*2 for x in np.linspace(0,11,1001)]
-posterior = [gamma_pdf(x,results['s'][-1],1/results['r'][-1]) for x in np.linspace(0,11,1001)]
-#print(data)
-#print(update_prior(10,2,ys,results,lam))
-print(pd.DataFrame(results))
-
-plt.plot(np.linspace(0,11,1001),prior,label="Prior",color='yellow')
-plt.plot(np.linspace(0,11,1001),data,label='data',color='blue')
-plt.plot(np.linspace(0,11,1001),posterior,label='Posterior',color='green')
-plt.legend()
-plt.show()
+def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},**kwargs):
+    if len(results.keys()) == 0:
+        results = {
+            's':[prior_s],
+            'r':[prior_r],
+            'model':['prior'],
+            'mean':[gamma_expectation(x_var,prior_s,1/prior_r)],
+            'variance':[gamma_variance(prior_s,1/prior_r)],
+            'SD':[np.sqrt(float(gamma_variance(prior_s,1/prior_r)))],
+            'probability':['']
+        }
+    posterior_new = update_prior(prior_s,prior_r,new_data,results,lam)
+    #print(posterior_new)
+    prior = [gamma_pdf(x,prior_s,1/prior_r) for x in np.linspace(0,11,1001)]
+    data = [poisson_pdf(x,lam)*2 for x in np.linspace(0,11,1001)]
+    posterior = [gamma_pdf(x,results['s'][-1],1/results['r'][-1]) for x in np.linspace(0,11,1001)]
+    print(pd.DataFrame(results))
+    
+    if kwargs.get("plot"):
+        plt.plot(np.linspace(0,11,1001),prior,label="Prior",color='yellow')
+        plt.plot(np.linspace(0,11,1001),data,label='data',color='blue')
+        plt.plot(np.linspace(0,11,1001),posterior,label='Posterior',color='green')
+        plt.legend()
+        plt.show()
+    return results
+#get_posterior_table_gamma_poisson(5,1,[6,2,2,1],5,plot=True)
 
 #print(np.mean(data))
 

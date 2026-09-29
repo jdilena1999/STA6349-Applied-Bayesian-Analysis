@@ -49,35 +49,36 @@ def update_prior(prior_mu,prior_std,data_std,y_bar,n,df):
     return (new_mu,new_sd)
 
 
+def get_posterior_table_normal_normal(prior_mean,prior_sd,new_data,results = {},**kwargs):
+    if len(results.keys()) == 0:
+        results = {
+            'mu':[prior_mean],
+            'var':[prior_sd**2],
+            'sd':[prior_sd],
+            'model':['prior'],
+            #'mean':[normal_expectation(x_var,6.5,0.4)],
+            #'variance':[normal_variance(6.5,0.4)],
+            #'probability':[0]
+        }
+    #data = pd.read_csv("football.csv")
+    data_mu = np.mean(new_data)
+    data_std = np.std(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].std()
+    data_n = len(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].to_numpy())
 
-
-results = {
-    'mu':[prior_mu],
-    'var':[prior_std**2],
-    'sd':[prior_std],
-    'model':['prior'],
-    #'mean':[normal_expectation(x_var,6.5,0.4)],
-    #'variance':[normal_variance(6.5,0.4)],
-    #'probability':[0]
-}
-data = pd.read_csv("football.csv")
-data_mu = data[data['group'].isin(["fb_concuss"])]['volume'].mean()
-
-posterior_new = update_prior(prior_mu,prior_std,0.5,data_mu,25,results)
-print(pd.DataFrame(results))
-#print(posterior_new)
-prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(5,8,1001)]
-posterior = [normal_pdf(x,results['mu'][1],results['sd'][1]) for x in np.linspace(5,8,1001)]
-data = data[data['group'].isin(["fb_concuss"])]['volume']
-#print(data)
-#print(update_prior(10,2,ys,results,lam))
-#print(pd.DataFrame(results))
-
-plt.plot(np.linspace(5,8,1001),prior,label="Prior",color='yellow')
-plt.hist(data,label='data',color='blue',density=True,bins=30)
-plt.plot(np.linspace(5,8,1001),posterior,label='Posterior',color='green')
-plt.legend()
-plt.show()
+    posterior_new = update_prior(prior_mu,prior_std,data_std,data_mu,data_n,results)
+    print(pd.DataFrame(results))
+    #print(posterior_new)
+    prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(5,8,1001)]
+    posterior = [normal_pdf(x,results['mu'][1],results['sd'][1]) for x in np.linspace(5,8,1001)]
+    if kwargs.get("plot"):
+        plt.plot(np.linspace(5,8,1001),prior,label="Prior",color='yellow')
+        plt.hist(new_data,label='data',color='blue',density=True,bins=30)
+        plt.plot(np.linspace(5,8,1001),posterior,label='Posterior',color='green')
+        plt.legend()
+        plt.show()
+#data = pd.read_csv("football.csv")
+#data = data[data["group"].isin(["fb_concuss"])]['volume'].to_numpy()
+#get_posterior_table_normal_normal(6.5,0.4,data,plot=False)
 
 #plt.plot(data[data['group'].isin(["fb_concuss"])]['volume'],[normal_pdf(x,data[data['group'].isin(["fb_concuss"])]['volume'].mean(),data[data['group'].isin(["fb_concuss"])]['volume'].std()) for x in data[data['group'].isin(["fb_concuss"])]['volume']],label='Data',color='blue')
 #plt.legend()
