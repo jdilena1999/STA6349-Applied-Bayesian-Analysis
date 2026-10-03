@@ -77,7 +77,7 @@ def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},
     posterior_new = update_prior(prior_s,prior_r,new_data,results,lam)
     #print(posterior_new)
     prior = [gamma_pdf(x,prior_s,1/prior_r) for x in np.linspace(0,11,1001)]
-    data = [poisson_pdf(x,lam)*2 for x in np.linspace(0,11,1001)]
+    data = [poisson_pdf(x,lam) for x in np.linspace(0,11,1001)]
     posterior = [gamma_pdf(x,results['s'][-1],1/results['r'][-1]) for x in np.linspace(0,11,1001)]
     print(pd.DataFrame(results))
     
@@ -88,7 +88,9 @@ def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},
         plt.legend()
         plt.show()
     return results
-#get_posterior_table_gamma_poisson(5,1,[6,2,2,1],5,plot=True)
+#get_posterior_table_gamma_poisson(15,3,[6,2,2,1],5,plot=True)
+
+
 
 #print(np.mean(data))
 

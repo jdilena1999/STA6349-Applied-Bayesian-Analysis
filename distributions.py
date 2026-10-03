@@ -155,7 +155,7 @@ def qbeta(ps:tuple,shape1,shape2):
     return stats.beta.ppf(ps,shape1,shape2)
 
 def qgamma(ps:tuple,alpha,beta):
-    return stats.gamma.ppf(ps,alpha,beta)
+    return stats.gamma.ppf(ps,alpha,scale=beta)
 
 
 if __name__ == '__main__':
