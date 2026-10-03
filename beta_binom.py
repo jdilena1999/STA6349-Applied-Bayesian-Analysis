@@ -20,7 +20,7 @@ def update_prior(prior_alpha,prior_beta,new_num_successes,new_n,df):
     new_mean = beta_expectation(x_var,new_alpha,new_beta)
     df['alpha'].append(new_alpha)
     df['beta'].append(new_beta)
-    df['model'].append(f'posterior {len(df['model'])}')
+    df['model'].append(f"posterior {len(df['model'])}")
     df['variance'].append(beta_variance(new_alpha,new_beta))
     df['sd'].append(np.sqrt(float(beta_variance(new_alpha,new_beta))))
     df['mean'].append(new_mean)
@@ -50,17 +50,17 @@ def get_posterior_table_beta_binom(prior_a,prior_b,new_num_successes,new_n,resul
             'mode':[calc_mode(prior_a,prior_b)]
         }
     update_prior(prior_a,prior_b,new_num_successes,new_n,results)
-    print(pd.DataFrame(results))
-    prior = [beta_pdf(x,prior_a,prior_b) for x in np.linspace(0,new_n,1001)]
-    data = [binomial_pdf(x,new_n,new_num_successes/new_n) for x in np.linspace(0,new_n,1001)]
-    posterior = [beta_pdf(x,results['alpha'][-1],results['beta'][-1]) for x in np.linspace(0,new_n,1001)]
+    #print(pd.DataFrame(results))
+    prior = [beta_pdf(x,prior_a,prior_b) for x in np.linspace(0,1,1001)]
+    data = [binomial_pdf(new_num_successes,new_n,x)*new_n for x in np.linspace(0,1,1001)]
+    posterior = [beta_pdf(x,results['alpha'][-1],results['beta'][-1]) for x in np.linspace(0,1,1001)]
     if kwargs.get("plot"):
-            plt.plot(np.linspace(0,new_n,1001),prior,label="Prior",color='yellow')
-            plt.plot(np.linspace(0,new_n,1001),data,label='data',color='blue')
-            plt.plot(np.linspace(0,new_n,1001),posterior,label='Posterior',color='green')
+            plt.plot(np.linspace(0,1,1001),prior,label="Prior",color='yellow')
+            plt.plot(np.linspace(0,1,1001),data,label='data',color='blue')
+            plt.plot(np.linspace(0,1,1001),posterior,label='Posterior',color='green')
             plt.legend()
             plt.show()
-    return results
+    return pd.DataFrame(results)
 
 #get_posterior_table_beta_binom(45,55,30,50,plot=True)
 

@@ -151,6 +151,13 @@ def pbeta(q,shape1,shape2,lower_tail = True):
         integ = sp.integrate(f,(x,q,1))
     return integ
 
+def qbeta(ps:tuple,shape1,shape2):
+    return stats.beta.ppf(ps,shape1,shape2)
+
+def qgamma(ps:tuple,alpha,beta):
+    return stats.gamma.ppf(ps,alpha,beta)
+
+
 if __name__ == '__main__':
 
 
