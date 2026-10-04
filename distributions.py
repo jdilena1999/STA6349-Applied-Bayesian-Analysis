@@ -151,17 +151,51 @@ def pbeta(q,shape1,shape2,lower_tail = True):
         integ = sp.integrate(f,(x,q,1))
     return integ
 
-def qbeta(ps:tuple,shape1,shape2):
+def qbeta_auto(ps:tuple,shape1,shape2):
     return stats.beta.ppf(ps,shape1,shape2)
+'''def qbeta_manual(ps:tuple,shape1,shape2):
+    xs = np.linspace(0,1,1_000)
+    ys = [beta_pdf(x,shape1,shape2) for x in xs]
+    final = []
+    for p in ps:
+        deltas = [abs(p-x) for x in xs]
+        target_index = deltas.index(min(deltas))
+        final.append(ys[target_index]) 
+    return final'''           
 
-def qgamma(ps:tuple,alpha,beta):
+def qgamma_auto(ps:tuple,alpha,beta):
     return stats.gamma.ppf(ps,alpha,scale=beta)
+'''def qgamma_manual(ps,alpha,beta):
+    xs = np.linspace(0,alpha*3)
+    ys = [gamma_pdf(x,alpha,beta) for x in xs]    
+    final = [] 
+    for p in ps:
+        deltas = [abs(p-y) for y in ys]
+        target_index = np.array(deltas).argmin()
+        target_y = ys[target_index]      
+        final.append(target_y)
+    return final'''
+def beta_cdf_auto(x,shape1,shape2):
+    return stats.beta.cdf(x,shape1,shape2)
+def beta_cdf_manual(rv,shape1,shape2):
+    x = sp.symbols('x')
+    f = beta_pdf(x,shape1,shape2)
+    return sp.integrate(f,(x,0,rv))
+    #plt.plot(xs,ys)
+    #plt.show()
+
 
 
 if __name__ == '__main__':
 
+    
+    print(qgamma_auto((0.025,0.975),148,1/37))
+    print(qgamma_manual((0.025,0.975),148,1/37))
 
-    print()
+
+    '''plt.plot([beta_pdf(x,10,2) for x in np.linspace(0,1,1_000)])
+    plt.show()'''
+    '''print()
     print("= "*50)
     print("Binomial")
     print("= "*50)
@@ -225,6 +259,7 @@ if __name__ == '__main__':
     print(f"P[More than 90% of respondents like the new flavor]: {pbeta(0.9,8,2,False)}")
     print(f"P[Between 70% and 90% of respondents like the new flavor]: {pbeta(0.9,8,2) - pbeta(0.7,8,2)}")
 
+    '''
 
 
 
