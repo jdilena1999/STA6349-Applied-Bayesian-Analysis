@@ -1,0 +1,214 @@
+---
+title: "STA6349 Midterm"
+author: "Joshua DiLena"
+execute:
+  echo: true
+  warning: false
+  message: false
+  error: true
+format: 
+  html:
+    df-print: kable
+    self-contained: true
+    html-math-method: katex
+    code-fold: false
+    code-tools: false
+    incremental: false
+editor: source
+---
+
+At approximately 8:17 a.m. on February 27, the estate manager arrived at Blackwater Manor and discovered Victor Holloway unresponsive in his private library. There were no signs of forced entry. Several people with access to the property are being interviewed, but investigators have not reached any conclusions. 
+
+Florida Department of Law Enforcement has requested assistance from our group -- the Bayesian Consulting Unit. Your role is **not** to determine guilt or innocence. Instead, you will quantify uncertainty in several independent pieces of forensic evidence using Bayesian methods.
+
+# Part 1
+
+The following reports summarize evidence submitted by different forensic
+units. Treat each report as an independent statistical analysis. Unless otherwise stated, assume the prior distributions supplied by each laboratory were established before the current investigation using historical validation studies.
+
+## Laboratory Report 1: Forensic Biology Unit
+
+**How reliable is the new DNA reagent?**
+
+A trace biological sample was recovered beneath the victim's fingernails. Because the sample is highly degraded, analysts must use a recently developed DNA amplification reagent before proceeding with genetic testing.
+
+Prior to relying on the reagent during this investigation, the laboratory performs an updated validation study using specimens with known DNA profiles.
+
+Data provided:
+
+-   Prior distribution: Beta(18, 2)
+-   Twenty validation specimens were analyzed.
+-   The reagent correctly identified the DNA profile in 17 specimens.
+
+a. Update the laboratory's belief about the probability that the reagent correctly identifies a DNA sample.
+
+```{python}
+import pandas as pd
+from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom
+import numpy as np
+import matplotlib.pyplot as plt
+from expectations import beta_expectation,beta_variance,x
+from beta_binom import get_posterior_table_beta_binom
+print(get_posterior_table_beta_binom(18,2,17,20,{},plot=True))
+```
+
+b. What is the 95% credible interview for the parameter being estimated?
+
+```{python}
+from distributions import qbeta_auto
+print(qbeta_auto((0.025,0.975),35,5))
+```
+
+c. Suppose another laboratory performs 200 validation tests instead of 20. Would the influence of the prior become more or less important? Explain.
+
+As more data becomes available and more validation test are performed, the influence of the prior becomes less important because the validation tests are causing our new posterior distribution to shift toward distribution of the datasets.
+
+
+## Laboratory Report 2: Firearms Examination Unit 
+
+**How consistently does the recovered firearm produce the distinctive toolmark?**
+
+Investigators recovered a handgun during the execution of a search warrant. Laboratory examiners compare cartridge cases from controlled test firings with the cartridge case recovered at the crime scene.
+
+Because microscopic firing-pin impressions vary slightly from shot to shot, the laboratory models the probability that a test firing exhibits the characteristic pattern observed on the evidence cartridge.
+
+Data provided:
+
+-   Prior distribution: Beta(8, 2)
+-   Thirty independent test firings were performed.
+-   Twenty-eight cartridge cases displayed the characteristic firing-pin
+    impression.
+
+Task: Update the probability that the recovered firearm consistently produces the observed toolmark pattern.
+
+a. Update the laboratory's belief about the probability that the recovered firearm consistently produces the observed toolmark pattern.
+
+```{python}
+
+```
+
+b. What is the 95% credible interview for the parameter being estimated?
+
+```{python}
+
+```
+
+c. Another forensic laboratory analyzes the same evidence but uses a prior distribution of Beta(80, 20) instead of Beta(8, 2). Without calculating anything posterior distribution, compare how the two laboratories’ posterior distributions would differ after observing the same test-firing results. Explain your reasoning.
+
+
+
+
+
+## Laboratory Report 3: Criminal Intelligence Unit 
+
+**How frequently was the residence being surveilled?**
+
+Multiple neighbors reported unfamiliar vehicles parked near Blackwater Manor during the month preceding the homicide. Investigators reviewed archived neighborhood security footage and counted suspicious vehicles observed each week.
+
+Data provided:
+
+-   Prior distribution: Gamma(6, 2)
+-   Weekly counts: 4, 2, 3, 5
+
+Task: Estimate the average weekly number of suspicious vehicles observed near the residence.
+
+a. Update FDLE's belief about the average weekly rate of suspicious vehicle activity near Blackwater Manor.
+
+```{python}
+
+```
+
+b. What is the 95% credible interview for the parameter being estimated?
+
+```{python}
+
+```
+
+c. Another statistician reviews the prior and asks, "What operational knowledge does this prior convey and how much influence does it have relative to the four weeks of observed data?" Address both parts of the analyst's question.
+
+<!-- ask yourself what the hyperparameters mean -- don't just talk about the prior mean -->
+
+
+
+
+
+
+## Laboratory Report 4: Digital Forensics Unit 
+
+**How frequently were the suspects communicating?**
+
+Digital investigators recovered metadata from encrypted messaging applications used by two persons of interest. Although message contents remain unavailable, investigators counted the number of communications exchanged each day during the week immediately preceding the victim's death.
+
+Data provided:
+
+-   Prior distribution: Gamma(10, 2)
+-   Daily message counts: 6, 3, 5, 4, 8, 5, 7
+
+Task: Estimate the average number of daily communications between the two devices.
+
+a. Update the digital investigation unit's belief about the average daily rate of communications between the two devices.
+
+```{python}
+
+```
+
+b. What is the 95% credible interview for the parameter being estimated?
+
+```{python}
+
+```
+
+c. A second analyst approaches the same investigation using a prior distribution of Gamma(5, 1) instead of Gamma(10, 2). Without computing either posterior distribution, compare what the two analysts' posteriors would look like after observing the same daily message counts. What drives this difference?
+
+
+
+
+## Laboratory Report 5: Office of the Medical Examiner 
+
+**What is the estimated time of death?**
+
+Five independent forensic pathologists estimated the elapsed time since death using body temperature, rigor mortis, lividity, and environmental conditions. Historical case records provide a prior distribution for the mean elapsed time under similar circumstances. Assume the measurement variance is known.
+
+Data provided:
+
+-   Prior distribution: Normal(7, 4)
+-   Known observation variance: 1 hour<sup>2</sup>
+-   Estimated hours since death: 7.8, 8.1, 7.6, 8.0, 7.9
+
+Task: Update the posterior distribution for the mean time since death and interpret the result for investigators.
+
+a. Update the forensic pathology unit's belief about the mean elapsed time since death.
+
+```{python}
+
+```
+
+b. What is the 95% credible interview for the parameter being estimated?
+
+```{python}
+
+```
+
+c. This analysis assumes the observation variance is known ($\sigma^2 = 1$ hour$^2$). In practice, we rarely have access to a verified, fixed measurement variance; we typically estimate it from the data itself.
+
+* Why does knowing $\sigma^2$ allow a closed-form conjugate posterior to be derived for the mean alone?
+
+
+* A colleague argues that as long as the sample size is large enough, it makes no practical difference whether $\sigma^2$ is treated as known or estimated. Under what conditions would you agree with their statement?
+
+
+
+<!-- yes, this part c is more advanced than the others -->
+<!-- yes, you will need to do research outside of lecture notes -- use this as practice for when you're in the real world and may have to explain/defend/justify your choices -->
+
+# Part 2
+
+Using the posterior distributions you derived in Laboratory Reports 1–5, prepare a brief written summary report suitable for submission to the lead FDLE investigator. Your report should communicate findings <u>clearly</u> to a non-statistician audience. Your report must include the following:
+
+* One (short) paragraph per laboratory summarizing what the posterior distribution revealed about that piece of evidence, written in plain language. Avoid technical terms like "posterior," "conjugate," or "credible interval." Please describe the finding in terms an investigator would understand.
+
+* A synthesis paragraph that steps back from the individual findings and addresses the evidence as a whole. What does the collection of analyses suggest about the circumstances surrounding Victor Holloway's death? Where is the evidence strong and where does uncertainty remain?
+
+* A closing statement reminding the investigator of the scope and limitations of this analysis. Your role as a statistical consultant is to quantify uncertainty, **not** to assign responsibility. Your report **must not** draw conclusions about the guilt or innocence of any individual.
+
+Finally, write in complete sentences and paragraphs (do not use bullet points in your submitted report).
