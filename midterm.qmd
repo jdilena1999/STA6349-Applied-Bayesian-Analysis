@@ -84,13 +84,20 @@ Task: Update the probability that the recovered firearm consistently produces th
 a. Update the laboratory's belief about the probability that the recovered firearm consistently produces the observed toolmark pattern.
 
 ```{python}
-
+import pandas as pd
+from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom
+import numpy as np
+import matplotlib.pyplot as plt
+from expectations import beta_expectation,beta_variance,x
+from beta_binom import get_posterior_table_beta_binom
+print(get_posterior_table_beta_binom(8,2,28,30,{},plot=True))
 ```
 
 b. What is the 95% credible interview for the parameter being estimated?
 
 ```{python}
-
+from distributions import qbeta_auto
+print(qbeta_auto((0.025,0.975),36,4))
 ```
 
 c. Another forensic laboratory analyzes the same evidence but uses a prior distribution of Beta(80, 20) instead of Beta(8, 2). Without calculating anything posterior distribution, compare how the two laboratories’ posterior distributions would differ after observing the same test-firing results. Explain your reasoning.
