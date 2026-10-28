@@ -122,7 +122,14 @@ Task: Estimate the average weekly number of suspicious vehicles observed near th
 a. Update FDLE's belief about the average weekly rate of suspicious vehicle activity near Blackwater Manor.
 
 ```{python}
-
+import pandas as pd
+from distributions import gamma_pdf,pgamma,poisson_pdf,ppoisson
+import numpy as np
+import matplotlib.pyplot as plt
+from expectations import x,gamma_variance,gamma_expectation
+from math import factorial
+from gamma_poisson import get_posterior_table_gamma_poisson
+print(get_posterior_table_gamma_poisson(6,2,[4,2,3,5],plot=True))
 ```
 
 b. What is the 95% credible interview for the parameter being estimated?

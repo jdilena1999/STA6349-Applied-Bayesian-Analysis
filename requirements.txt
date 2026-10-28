@@ -242,6 +242,7 @@ pytz==2023.3
 PyYAML==6.0.2
 pyzmq==27.2.0
 qrcode==7.4.2
+quarto
 RapidFuzz==3.14.5
 referencing==0.37.0
 requests==2.32.4

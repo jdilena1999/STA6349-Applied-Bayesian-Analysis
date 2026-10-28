@@ -63,7 +63,11 @@ def update_prior(prior_s,prior_r,new_ys,df,lam):
 
 
 
-def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},**kwargs):
+def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,
+                                      #lam=prior_s/prior_r,
+                                      results = {},**kwargs):
+    #lam=prior_s/prior_r
+    #lam=prior_s / (1/prior_r)
     if len(results.keys()) == 0:
         results = {
             's':[prior_s],
@@ -74,10 +78,10 @@ def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},
             'SD':[np.sqrt(float(gamma_variance(prior_s,1/prior_r)))],
             'probability':['']
         }
-    posterior_new = update_prior(prior_s,prior_r,new_data,results,lam)
+    posterior_new = update_prior(prior_s,prior_r,new_data,results,np.mean(new_data))
     #print(posterior_new)
     prior = [gamma_pdf(x,prior_s,1/prior_r) for x in np.linspace(0,11,1001)]
-    data = [poisson_pdf(x,lam) for x in np.linspace(0,11,1001)]
+    data = [poisson_pdf(x,np.mean(new_data)) for x in np.linspace(0,11,1001)]
     posterior = [gamma_pdf(x,results['s'][-1],1/results['r'][-1]) for x in np.linspace(0,11,1001)]
     print(pd.DataFrame(results))
     
@@ -87,7 +91,7 @@ def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,lam,results = {},
         plt.plot(np.linspace(0,11,1001),posterior,label='Posterior',color='green')
         plt.legend()
         plt.show()
-    return results
+    return pd.DataFrame(results)
 #get_posterior_table_gamma_poisson(15,3,[6,2,2,1],5,plot=True)
 
 
