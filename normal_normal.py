@@ -36,12 +36,12 @@ def update_prior(prior_mu,prior_std,data_std,y_bar,n,df):
     new_mu_1 = prior_mu*(data_var/(n*prior_var+data_var))
     new_mu_2 = y_bar*(n*prior_var/(n*prior_var+data_var))
     new_mu = new_mu_1+new_mu_2
-    new_sd = (prior_var*data_var)/(n*prior_var+data_var)
+    new_sd = np.sqrt((prior_var*data_var)/(n*prior_var+data_var))
 
     #new_mean = gamma_expectation(x_var,new_alpha,new_beta)
     df['mu'].append(new_mu)
-    df['sd'].append(np.sqrt(new_sd))
-    df['var'].append(new_sd)
+    df['var'].append(new_sd**2)
+    df['sd'].append(new_sd)
     df['model'].append(f"posterior {len(df['model'])}")
     #df['variance'].append(normal_variance(new_mu,new_sd))
     #df['mean'].append(normal_expectation(x_var,new_mu,new_sd))
@@ -62,20 +62,24 @@ def get_posterior_table_normal_normal(prior_mean,prior_sd,new_data,results = {},
         }
     #data = pd.read_csv("football.csv")
     data_mu = np.mean(new_data)
-    data_std = np.std(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].std()
+    if kwargs.get("data_std"):
+        data_std = kwargs.get("data_std")
+    else:
+        data_std = np.std(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].std()
     data_n = len(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].to_numpy())
 
-    posterior_new = update_prior(prior_mu,prior_std,data_std,data_mu,data_n,results)
-    print(pd.DataFrame(results))
+    new_mu,new_sd = update_prior(prior_mu,prior_std,data_std,data_mu,data_n,results)
+    #print(pd.DataFrame(results))
     #print(posterior_new)
-    prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(5,8,1001)]
-    posterior = [normal_pdf(x,results['mu'][1],results['sd'][1]) for x in np.linspace(5,8,1001)]
+    prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(prior_mean-4*prior_sd,prior_mean+4*prior_sd,1001)]
+    posterior = [normal_pdf(x,results['mu'][-1],results['sd'][-1]) for x in np.linspace(results['mu'][-1]-(4*results['sd'][-1]),results['mu'][-1]+(4*results['sd'][-1]),1001)]
     if kwargs.get("plot"):
-        plt.plot(np.linspace(5,8,1001),prior,label="Prior",color='yellow')
-        plt.hist(new_data,label='data',color='blue',density=True,bins=30)
-        plt.plot(np.linspace(5,8,1001),posterior,label='Posterior',color='green')
+        plt.plot(np.linspace(prior_mean-4*prior_sd,prior_mean+4*prior_sd,1001),prior,label="Prior",color='yellow')
+        plt.plot(np.linspace(data_mu-4*data_std,data_mu+4*data_std,1001),prior,label="Data",color='blue')
+        plt.plot(np.linspace(results['mu'][1]-4*results['sd'][1],results['mu'][1]+4*results['sd'][1],1001),posterior,label='Posterior',color='green')
         plt.legend()
         plt.show()
+    return pd.DataFrame(results)
 #data = pd.read_csv("football.csv")
 #data = data[data["group"].isin(["fb_concuss"])]['volume'].to_numpy()
 #get_posterior_table_normal_normal(6.5,0.4,data,plot=False)

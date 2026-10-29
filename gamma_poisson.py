@@ -83,7 +83,7 @@ def get_posterior_table_gamma_poisson(prior_s,prior_r,new_data,
     prior = [gamma_pdf(x,prior_s,1/prior_r) for x in np.linspace(0,11,1001)]
     data = [poisson_pdf(x,np.mean(new_data)) for x in np.linspace(0,11,1001)]
     posterior = [gamma_pdf(x,results['s'][-1],1/results['r'][-1]) for x in np.linspace(0,11,1001)]
-    print(pd.DataFrame(results))
+    #print(pd.DataFrame(results))
     
     if kwargs.get("plot"):
         plt.plot(np.linspace(0,11,1001),prior,label="Prior",color='yellow')

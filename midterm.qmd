@@ -43,11 +43,11 @@ Data provided:
 a. Update the laboratory's belief about the probability that the reagent correctly identifies a DNA sample.
 
 ```{python}
-import pandas as pd
+'''import pandas as pd
 from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom
 import numpy as np
 import matplotlib.pyplot as plt
-from expectations import beta_expectation,beta_variance,x
+from expectations import beta_expectation,beta_variance,x'''
 from beta_binom import get_posterior_table_beta_binom
 print(get_posterior_table_beta_binom(18,2,17,20,{},plot=True))
 ```
@@ -84,12 +84,12 @@ Task: Update the probability that the recovered firearm consistently produces th
 a. Update the laboratory's belief about the probability that the recovered firearm consistently produces the observed toolmark pattern.
 
 ```{python}
-import pandas as pd
+'''import pandas as pd
 from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom
 import numpy as np
 import matplotlib.pyplot as plt
 from expectations import beta_expectation,beta_variance,x
-from beta_binom import get_posterior_table_beta_binom
+from beta_binom import get_posterior_table_beta_binom'''
 print(get_posterior_table_beta_binom(8,2,28,30,{},plot=True))
 ```
 
@@ -122,12 +122,12 @@ Task: Estimate the average weekly number of suspicious vehicles observed near th
 a. Update FDLE's belief about the average weekly rate of suspicious vehicle activity near Blackwater Manor.
 
 ```{python}
-import pandas as pd
+'''import pandas as pd
 from distributions import gamma_pdf,pgamma,poisson_pdf,ppoisson
 import numpy as np
 import matplotlib.pyplot as plt
 from expectations import x,gamma_variance,gamma_expectation
-from math import factorial
+from math import factorial'''
 from gamma_poisson import get_posterior_table_gamma_poisson
 print(get_posterior_table_gamma_poisson(6,2,[4,2,3,5],plot=True))
 ```
@@ -135,7 +135,8 @@ print(get_posterior_table_gamma_poisson(6,2,[4,2,3,5],plot=True))
 b. What is the 95% credible interview for the parameter being estimated?
 
 ```{python}
-
+from distributions import qgamma_auto
+print(qgamma_auto((0.025,0.975),20,1/6))
 ```
 
 c. Another statistician reviews the prior and asks, "What operational knowledge does this prior convey and how much influence does it have relative to the four weeks of observed data?" Address both parts of the analyst's question.
@@ -163,13 +164,16 @@ Task: Estimate the average number of daily communications between the two device
 a. Update the digital investigation unit's belief about the average daily rate of communications between the two devices.
 
 ```{python}
+from gamma_poisson import get_posterior_table_gamma_poisson
+print(get_posterior_table_gamma_poisson(10,2,[6,3,5,4,8,5,7],plot=True))
 
 ```
 
 b. What is the 95% credible interview for the parameter being estimated?
 
 ```{python}
-
+from distributions import qgamma_auto
+print(qgamma_auto((0.025,0.975),48,1/9))
 ```
 
 c. A second analyst approaches the same investigation using a prior distribution of Gamma(5, 1) instead of Gamma(10, 2). Without computing either posterior distribution, compare what the two analysts' posteriors would look like after observing the same daily message counts. What drives this difference?
@@ -194,13 +198,15 @@ Task: Update the posterior distribution for the mean time since death and interp
 a. Update the forensic pathology unit's belief about the mean elapsed time since death.
 
 ```{python}
-
+from normal_normal import get_posterior_table_normal_normal
+print(get_posterior_table_normal_normal(7,4,[7.8,8.1,7.6,8.0,7.9],data_std=1,plot=True))
 ```
 
 b. What is the 95% credible interview for the parameter being estimated?
 
 ```{python}
-
+from distributions import qnormal_auto
+print(qnormal_auto((0.025,0.975),)
 ```
 
 c. This analysis assumes the observation variance is known ($\sigma^2 = 1$ hour$^2$). In practice, we rarely have access to a verified, fixed measurement variance; we typically estimate it from the data itself.
