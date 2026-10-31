@@ -30,7 +30,7 @@ x_var = x
     
 
     
-def update_prior(prior_mu,prior_std,data_std,y_bar,n,df):
+def update_prior(prior_mu,prior_std,data_std,y_bar,n,df,**kwargs):
     prior_var = prior_std**2
     data_var = data_std**2
     new_mu_1 = prior_mu*(data_var/(n*prior_var+data_var))
@@ -62,13 +62,13 @@ def get_posterior_table_normal_normal(prior_mean,prior_sd,new_data,results = {},
         }
     #data = pd.read_csv("football.csv")
     data_mu = np.mean(new_data)
-    if kwargs.get("data_std"):
-        data_std = kwargs.get("data_std")
+    if kwargs.get("assumed_std"):
+        data_std = kwargs.get("assumed_std")
     else:
         data_std = np.std(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].std()
     data_n = len(new_data)#data[data['group'].isin(["fb_concuss"])]['volume'].to_numpy())
 
-    new_mu,new_sd = update_prior(prior_mu,prior_std,data_std,data_mu,data_n,results)
+    new_mu,new_sd = update_prior(results['mu'][-1], results['sd'][-1],data_std,data_mu,data_n,results)
     #print(pd.DataFrame(results))
     #print(posterior_new)
     prior = [normal_pdf(x,results['mu'][0],results['sd'][0]) for x in np.linspace(prior_mean-4*prior_sd,prior_mean+4*prior_sd,1001)]

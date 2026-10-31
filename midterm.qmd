@@ -199,14 +199,14 @@ a. Update the forensic pathology unit's belief about the mean elapsed time since
 
 ```{python}
 from normal_normal import get_posterior_table_normal_normal
-print(get_posterior_table_normal_normal(7,4,[7.8,8.1,7.6,8.0,7.9],data_std=1,plot=True))
+print(get_posterior_table_normal_normal(7,4,[7.8,8.1,7.6,8.0,7.9],assumed_std=1,plot=True))
 ```
 
 b. What is the 95% credible interview for the parameter being estimated?
 
 ```{python}
 from distributions import qnormal_auto
-print(qnormal_auto((0.025,0.975),)
+print(qnormal_auto((0.025,0.975),7.869136,0.444444))
 ```
 
 c. This analysis assumes the observation variance is known ($\sigma^2 = 1$ hour$^2$). In practice, we rarely have access to a verified, fixed measurement variance; we typically estimate it from the data itself.

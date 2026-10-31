@@ -154,7 +154,7 @@ def pbeta(q,shape1,shape2,lower_tail = True):
 def qbeta_auto(ps:tuple,shape1,shape2):
     return stats.beta.ppf(ps,shape1,shape2)
 def qnormal_auto(ps:tuple,mean,std):
-    return stats.normal.ppf(ps,mean,std)
+    return stats.norm.ppf(ps,mean,std)
 '''def qbeta_manual(ps:tuple,shape1,shape2):
     xs = np.linspace(0,1,1_000)
     ys = [beta_pdf(x,shape1,shape2) for x in xs]
