@@ -88,8 +88,8 @@ a. Update the laboratory's belief about the probability that the recovered firea
 from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom
 import numpy as np
 import matplotlib.pyplot as plt
-from expectations import beta_expectation,beta_variance,x
-from beta_binom import get_posterior_table_beta_binom'''
+from expectations import beta_expectation,beta_variance,x'''
+from beta_binom import get_posterior_table_beta_binom
 print(get_posterior_table_beta_binom(8,2,28,30,{},plot=True))
 ```
 
@@ -102,7 +102,7 @@ print(qbeta_auto((0.025,0.975),36,4))
 
 c. Another forensic laboratory analyzes the same evidence but uses a prior distribution of Beta(80, 20) instead of Beta(8, 2). Without calculating anything posterior distribution, compare how the two laboratories’ posterior distributions would differ after observing the same test-firing results. Explain your reasoning.
 
-
+The other forensic laboratory with the Beta(80,20) distribution would result in a posterior distribution much closer to the prior, since its prior distribution carries significantly more weight with respect to the thirty independent test firings. The difference between the two prior Beta distributions is the Beta(80,20) carries much greater strength than the Beta(8,2) distribution, even though they result in the same mean. As the number of test firings increases, however, both of the posterior distributions will converge.
 
 
 
@@ -143,7 +143,7 @@ c. Another statistician reviews the prior and asks, "What operational knowledge 
 
 <!-- ask yourself what the hyperparameters mean -- don't just talk about the prior mean -->
 
-
+The knowledge that this prior conveys is the mean number of suspicious vehicles is expected to be 6/2 = *3*. The alpha hyperparameter acts as a way of conveying how many TOTAL suspicious vehicles entered, while the beta hyperparameter conveys the strength/sample size/how many weeks of data. Therefore, it has about half as much influence as four weeks of observed data.
 
 
 
@@ -178,7 +178,7 @@ print(qgamma_auto((0.025,0.975),48,1/9))
 
 c. A second analyst approaches the same investigation using a prior distribution of Gamma(5, 1) instead of Gamma(10, 2). Without computing either posterior distribution, compare what the two analysts' posteriors would look like after observing the same daily message counts. What drives this difference?
 
-
+The difference in the two analysts' posteriors would be driven by the fact they have slightly different priors. While both posteriors are pulled from their respective means to the mean found in the data (5), the prior weight is greater in the original Gamma(10,2) distribution, which will result in a narrower posterior distribution than a Gamma(5,1) because of the difference in their beta parameters.
 
 
 ## Laboratory Report 5: Office of the Medical Examiner 
@@ -213,9 +213,11 @@ c. This analysis assumes the observation variance is known ($\sigma^2 = 1$ hour$
 
 * Why does knowing $\sigma^2$ allow a closed-form conjugate posterior to be derived for the mean alone?
 
+Sinced we "know" $\sigma^2$, that leaves our only unknown hyperparameter as $\mu$ and turns the data into a normally distributed measurement of $\mu$, with a known $\sigma^2$. 
 
 * A colleague argues that as long as the sample size is large enough, it makes no practical difference whether $\sigma^2$ is treated as known or estimated. Under what conditions would you agree with their statement?
 
+I would agree with the colleague if we had a much larger sample size for the data, but since our n is only 5, that would not apply here. Also, if we're only concerned about estimating the mean, knowing the variance or estimating it won't effect our answer on the mean value.
 
 
 <!-- yes, this part c is more advanced than the others -->

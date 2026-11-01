@@ -2333,7 +2333,7 @@ window.Quarto = {
 <ol type="a">
 <li>Update the laboratory’s belief about the probability that the reagent correctly identifies a DNA sample.</li>
 </ol>
-<div id="edafbe39" class="cell" data-execution_count="1">
+<div id="903df6fe" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
@@ -2361,7 +2361,7 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="9f9dd086" class="cell" data-execution_count="2">
+<div id="cf208273" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">35</span>,<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2388,13 +2388,13 @@ window.Quarto = {
 <ol type="a">
 <li>Update the laboratory’s belief about the probability that the recovered firearm consistently produces the observed toolmark pattern.</li>
 </ol>
-<div id="9d02becc" class="cell" data-execution_count="3">
+<div id="f9b7978f" class="cell" data-execution_count="3">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom</span></span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
 <span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import beta_expectation,beta_variance,x</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">from beta_binom import get_posterior_table_beta_binom&#39;&#39;&#39;</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import beta_expectation,beta_variance,x&#39;&#39;&#39;</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> beta_binom <span class="im">import</span> get_posterior_table_beta_binom</span>
 <span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_beta_binom(<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">28</span>,<span class="dv">30</span>,{},plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
@@ -2416,7 +2416,7 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="595b39ae" class="cell" data-execution_count="4">
+<div id="ef0231e0" class="cell" data-execution_count="4">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">36</span>,<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2426,6 +2426,7 @@ window.Quarto = {
 <ol start="3" type="a">
 <li>Another forensic laboratory analyzes the same evidence but uses a prior distribution of Beta(80, 20) instead of Beta(8, 2). Without calculating anything posterior distribution, compare how the two laboratories’ posterior distributions would differ after observing the same test-firing results. Explain your reasoning.</li>
 </ol>
+<p>The other forensic laboratory with the Beta(80,20) distribution would result in a posterior distribution much closer to the prior, since its prior distribution carries significantly more weight with respect to the thirty independent test firings. The difference between the two prior Beta distributions is the Beta(80,20) carries much greater strength than the Beta(8,2) distribution, even though they result in the same mean. As the number of test firings increases, however, both of the posterior distributions will converge.</p>
 </section>
 <section id="laboratory-report-3-criminal-intelligence-unit" class="level2">
 <h2 class="anchored" data-anchor-id="laboratory-report-3-criminal-intelligence-unit">Laboratory Report 3: Criminal Intelligence Unit</h2>
@@ -2440,7 +2441,7 @@ window.Quarto = {
 <ol type="a">
 <li>Update FDLE’s belief about the average weekly rate of suspicious vehicle activity near Blackwater Manor.</li>
 </ol>
-<div id="8cde7fe7" class="cell" data-execution_count="5">
+<div id="57ef322c" class="cell" data-execution_count="5">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import gamma_pdf,pgamma,poisson_pdf,ppoisson</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
@@ -2469,7 +2470,7 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="1b99b65c" class="cell" data-execution_count="6">
+<div id="04b9cf76" class="cell" data-execution_count="6">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
 <span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">20</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2480,6 +2481,7 @@ window.Quarto = {
 <li>Another statistician reviews the prior and asks, “What operational knowledge does this prior convey and how much influence does it have relative to the four weeks of observed data?” Address both parts of the analyst’s question.</li>
 </ol>
 <!-- ask yourself what the hyperparameters mean -- don't just talk about the prior mean -->
+<p>The knowledge that this prior conveys is the mean number of suspicious vehicles is expected to be 6/2 = <em>3</em>. The alpha hyperparameter acts as a way of conveying how many TOTAL suspicious vehicles entered, while the beta hyperparameter conveys the strength/sample size/how many weeks of data. Therefore, it has about half as much influence as four weeks of observed data.</p>
 </section>
 <section id="laboratory-report-4-digital-forensics-unit" class="level2">
 <h2 class="anchored" data-anchor-id="laboratory-report-4-digital-forensics-unit">Laboratory Report 4: Digital Forensics Unit</h2>
@@ -2494,7 +2496,7 @@ window.Quarto = {
 <ol type="a">
 <li>Update the digital investigation unit’s belief about the average daily rate of communications between the two devices.</li>
 </ol>
-<div id="b673dc33" class="cell" data-execution_count="7">
+<div id="cb3c4355" class="cell" data-execution_count="7">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gamma_poisson <span class="im">import</span> get_posterior_table_gamma_poisson</span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_gamma_poisson(<span class="dv">10</span>,<span class="dv">2</span>,[<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">7</span>],plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
@@ -2517,7 +2519,7 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="844e678d" class="cell" data-execution_count="8">
+<div id="cc06160c" class="cell" data-execution_count="8">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">48</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
@@ -2527,6 +2529,7 @@ window.Quarto = {
 <ol start="3" type="a">
 <li>A second analyst approaches the same investigation using a prior distribution of Gamma(5, 1) instead of Gamma(10, 2). Without computing either posterior distribution, compare what the two analysts’ posteriors would look like after observing the same daily message counts. What drives this difference?</li>
 </ol>
+<p>The difference in the two analysts’ posteriors would be driven by the fact they have slightly different priors. While both posteriors are pulled from their respective means to the mean found in the data (5), the prior weight is greater in the original Gamma(10,2) distribution, which will result in a narrower posterior distribution than a Gamma(5,1) because of the difference in their beta parameters.</p>
 </section>
 <section id="laboratory-report-5-office-of-the-medical-examiner" class="level2">
 <h2 class="anchored" data-anchor-id="laboratory-report-5-office-of-the-medical-examiner">Laboratory Report 5: Office of the Medical Examiner</h2>
@@ -2542,12 +2545,9 @@ window.Quarto = {
 <ol type="a">
 <li>Update the forensic pathology unit’s belief about the mean elapsed time since death.</li>
 </ol>
-<div id="88e9fefa" class="cell" data-execution_count="9">
+<div id="9569c980" class="cell" data-execution_count="9">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> normal_normal <span class="im">import</span> get_posterior_table_normal_normal</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_normal_normal(<span class="dv">7</span>,<span class="dv">4</span>,[<span class="fl">7.8</span>,<span class="fl">8.1</span>,<span class="fl">7.6</span>,<span class="fl">8.0</span>,<span class="fl">7.9</span>],assumed_std<span class="op">=</span><span class="dv">1</span>,plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(5.7, 7.3)</code></pre>
-</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2564,9 +2564,9 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="c2c34c22" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qnormal_auto</span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qnormal_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="fl">7.869136</span>,<span class="fl">0.444444</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="451599e1" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qnormal_auto</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qnormal_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="fl">7.869136</span>,<span class="fl">0.444444</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>[6.99804177 8.74023023]</code></pre>
 </div>
@@ -2575,9 +2575,13 @@ window.Quarto = {
 <li>This analysis assumes the observation variance is known (<span class="math inline">\sigma^2 = 1</span> hour<span class="math inline">^2</span>). In practice, we rarely have access to a verified, fixed measurement variance; we typically estimate it from the data itself.</li>
 </ol>
 <ul>
-<li><p>Why does knowing <span class="math inline">\sigma^2</span> allow a closed-form conjugate posterior to be derived for the mean alone?</p></li>
-<li><p>A colleague argues that as long as the sample size is large enough, it makes no practical difference whether <span class="math inline">\sigma^2</span> is treated as known or estimated. Under what conditions would you agree with their statement?</p></li>
+<li>Why does knowing <span class="math inline">\sigma^2</span> allow a closed-form conjugate posterior to be derived for the mean alone?</li>
 </ul>
+<p>Sinced we “know” <span class="math inline">\sigma^2</span>, that leaves our only unknown hyperparameter as <span class="math inline">\mu</span> and turns the data into a normally distributed measurement of <span class="math inline">\mu</span>, with a known <span class="math inline">\sigma^2</span>.</p>
+<ul>
+<li>A colleague argues that as long as the sample size is large enough, it makes no practical difference whether <span class="math inline">\sigma^2</span> is treated as known or estimated. Under what conditions would you agree with their statement?</li>
+</ul>
+<p>I would agree with the colleague if we had a much larger sample size for the data, but since our n is only 5, that would not apply here. Also, if we’re only concerned about estimating the mean, knowing the variance or estimating it won’t effect our answer on the mean value.</p>
 <!-- yes, this part c is more advanced than the others -->
 <!-- yes, you will need to do research outside of lecture notes -- use this as practice for when you're in the real world and may have to explain/defend/justify your choices -->
 </section>
