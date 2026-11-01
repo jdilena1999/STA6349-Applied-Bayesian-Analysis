@@ -2333,7 +2333,7 @@ window.Quarto = {
 <ol type="a">
 <li>Update the laboratory’s belief about the probability that the reagent correctly identifies a DNA sample.</li>
 </ol>
-<div id="903df6fe" class="cell" data-execution_count="1">
+<div id="9480a911" class="cell" data-execution_count="1">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom</span></span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
@@ -2361,11 +2361,18 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="cf208273" class="cell" data-execution_count="2">
+<div id="40d77e06" class="cell" data-execution_count="2">
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">35</span>,<span class="dv">5</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prior: </span><span class="sc">{</span>qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">18</span>,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[0.75779027 0.95703166]</code></pre>
+<pre><code>Prior: [0.73971935 0.98698784]</code></pre>
+</div>
+</div>
+<div id="d92046f4" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Posterior: </span><span class="sc">{</span>qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">35</span>,<span class="dv">5</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior: [0.75779027 0.95703166]</code></pre>
 </div>
 </div>
 <ol start="3" type="a">
@@ -2388,14 +2395,14 @@ window.Quarto = {
 <ol type="a">
 <li>Update the laboratory’s belief about the probability that the recovered firearm consistently produces the observed toolmark pattern.</li>
 </ol>
-<div id="f9b7978f" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom</span></span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import beta_expectation,beta_variance,x&#39;&#39;&#39;</span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> beta_binom <span class="im">import</span> get_posterior_table_beta_binom</span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_beta_binom(<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">28</span>,<span class="dv">30</span>,{},plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="932dfd2a" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import pbeta,beta_pdf,binomial_pdf,pbinom,dbinom</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import beta_expectation,beta_variance,x&#39;&#39;&#39;</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> beta_binom <span class="im">import</span> get_posterior_table_beta_binom</span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_beta_binom(<span class="dv">8</span>,<span class="dv">2</span>,<span class="dv">28</span>,<span class="dv">30</span>,{},plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2416,11 +2423,18 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="ef0231e0" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">36</span>,<span class="dv">4</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="056fa14e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prior: </span><span class="sc">{</span>qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">8</span>,<span class="dv">2</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[0.79129808 0.97133989]</code></pre>
+<pre><code>Prior: [0.51750349 0.97185503]</code></pre>
+</div>
+</div>
+<div id="f355ade8" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qbeta_auto</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Posterior: </span><span class="sc">{</span>qbeta_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">36</span>,<span class="dv">4</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior: [0.79129808 0.97133989]</code></pre>
 </div>
 </div>
 <ol start="3" type="a">
@@ -2441,15 +2455,15 @@ window.Quarto = {
 <ol type="a">
 <li>Update FDLE’s belief about the average weekly rate of suspicious vehicle activity near Blackwater Manor.</li>
 </ol>
-<div id="57ef322c" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import gamma_pdf,pgamma,poisson_pdf,ppoisson</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import x,gamma_variance,gamma_expectation</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">from math import factorial&#39;&#39;&#39;</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gamma_poisson <span class="im">import</span> get_posterior_table_gamma_poisson</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_gamma_poisson(<span class="dv">6</span>,<span class="dv">2</span>,[<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>],plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="ae7d767a" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co">&#39;&#39;&#39;import pandas as pd</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co">from distributions import gamma_pdf,pgamma,poisson_pdf,ppoisson</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="co">import numpy as np</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="co">import matplotlib.pyplot as plt</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a><span class="co">from expectations import x,gamma_variance,gamma_expectation</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a><span class="co">from math import factorial&#39;&#39;&#39;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gamma_poisson <span class="im">import</span> get_posterior_table_gamma_poisson</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_gamma_poisson(<span class="dv">6</span>,<span class="dv">2</span>,[<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">3</span>,<span class="dv">5</span>],plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2470,11 +2484,18 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="04b9cf76" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">20</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">6</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fefae03d" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prior: </span><span class="sc">{</span>qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">6</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[2.0360866  4.94514226]</code></pre>
+<pre><code>Prior: [1.10094713 5.83416604]</code></pre>
+</div>
+</div>
+<div id="f9b2473b" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Posterior: </span><span class="sc">{</span>qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">20</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">6</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior: [2.0360866  4.94514226]</code></pre>
 </div>
 </div>
 <ol start="3" type="a">
@@ -2496,9 +2517,9 @@ window.Quarto = {
 <ol type="a">
 <li>Update the digital investigation unit’s belief about the average daily rate of communications between the two devices.</li>
 </ol>
-<div id="cb3c4355" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gamma_poisson <span class="im">import</span> get_posterior_table_gamma_poisson</span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_gamma_poisson(<span class="dv">10</span>,<span class="dv">2</span>,[<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">7</span>],plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="374f6a01" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gamma_poisson <span class="im">import</span> get_posterior_table_gamma_poisson</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_gamma_poisson(<span class="dv">10</span>,<span class="dv">2</span>,[<span class="dv">6</span>,<span class="dv">3</span>,<span class="dv">5</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">5</span>,<span class="dv">7</span>],plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2519,11 +2540,18 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="cc06160c" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">48</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="f0d14dc4" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prior: </span><span class="sc">{</span>qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">10</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">2</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[3.93237898 6.94444848]</code></pre>
+<pre><code>Prior: [2.39769435 8.54240173]</code></pre>
+</div>
+</div>
+<div id="82075cd7" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qgamma_auto</span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Posterior: </span><span class="sc">{</span>qgamma_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">48</span>,<span class="dv">1</span><span class="op">/</span><span class="dv">9</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior: [3.93237898 6.94444848]</code></pre>
 </div>
 </div>
 <ol start="3" type="a">
@@ -2545,9 +2573,12 @@ window.Quarto = {
 <ol type="a">
 <li>Update the forensic pathology unit’s belief about the mean elapsed time since death.</li>
 </ol>
-<div id="9569c980" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> normal_normal <span class="im">import</span> get_posterior_table_normal_normal</span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_normal_normal(<span class="dv">7</span>,<span class="dv">4</span>,[<span class="fl">7.8</span>,<span class="fl">8.1</span>,<span class="fl">7.6</span>,<span class="fl">8.0</span>,<span class="fl">7.9</span>],assumed_std<span class="op">=</span><span class="dv">1</span>,plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="04348130" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> normal_normal <span class="im">import</span> get_posterior_table_normal_normal</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(get_posterior_table_normal_normal(<span class="dv">7</span>,<span class="dv">4</span>,[<span class="fl">7.8</span>,<span class="fl">8.1</span>,<span class="fl">7.6</span>,<span class="fl">8.0</span>,<span class="fl">7.9</span>],assumed_std<span class="op">=</span><span class="dv">1</span>,plot<span class="op">=</span><span class="va">True</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(5.7, 7.3)</code></pre>
+</div>
 <div class="cell-output cell-output-display">
 <div>
 <figure class="figure">
@@ -2564,11 +2595,18 @@ window.Quarto = {
 <ol start="2" type="a">
 <li>What is the 95% credible interview for the parameter being estimated?</li>
 </ol>
-<div id="451599e1" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qnormal_auto</span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(qnormal_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="fl">7.869136</span>,<span class="fl">0.444444</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="c20c9a25" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qnormal_auto</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Prior: </span><span class="sc">{</span>qnormal_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="dv">7</span>,<span class="dv">4</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[6.99804177 8.74023023]</code></pre>
+<pre><code>Prior: [-0.83985594 14.83985594]</code></pre>
+</div>
+</div>
+<div id="7641071d" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> distributions <span class="im">import</span> qnormal_auto</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f&quot;Posterior: </span><span class="sc">{</span>qnormal_auto((<span class="fl">0.025</span>,<span class="fl">0.975</span>),<span class="fl">7.869136</span>,<span class="fl">0.444444</span>)<span class="sc">}</span><span class="ss">&quot;</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Posterior: [6.99804177 8.74023023]</code></pre>
 </div>
 </div>
 <ol start="3" type="a">
@@ -2590,11 +2628,37 @@ window.Quarto = {
 <h1>Part 2</h1>
 <p>Using the posterior distributions you derived in Laboratory Reports 1–5, prepare a brief written summary report suitable for submission to the lead FDLE investigator. Your report should communicate findings <u>clearly</u> to a non-statistician audience. Your report must include the following:</p>
 <ul>
-<li><p>One (short) paragraph per laboratory summarizing what the posterior distribution revealed about that piece of evidence, written in plain language. Avoid technical terms like “posterior,” “conjugate,” or “credible interval.” Please describe the finding in terms an investigator would understand.</p></li>
-<li><p>A synthesis paragraph that steps back from the individual findings and addresses the evidence as a whole. What does the collection of analyses suggest about the circumstances surrounding Victor Holloway’s death? Where is the evidence strong and where does uncertainty remain?</p></li>
-<li><p>A closing statement reminding the investigator of the scope and limitations of this analysis. Your role as a statistical consultant is to quantify uncertainty, <strong>not</strong> to assign responsibility. Your report <strong>must not</strong> draw conclusions about the guilt or innocence of any individual.</p></li>
+<li>One (short) paragraph per laboratory summarizing what the posterior distribution revealed about that piece of evidence, written in plain language. Avoid technical terms like “posterior,” “conjugate,” or “credible interval.” Please describe the finding in terms an investigator would understand.</li>
 </ul>
+<section id="laboratory-report-1-forensic-biology-unit-1" class="level2">
+<h2 class="anchored" data-anchor-id="laboratory-report-1-forensic-biology-unit-1">Laboratory Report 1: Forensic Biology Unit</h2>
+<p>The expected accuracy of the reagent’s ability to correctly identify a DNA profile is 87.5% of the time. We are 95% confident that the true value lies between 75.77% and 95.70% based on the prior assumptions and the data provided.</p>
+</section>
+<section id="laboratory-report-2-firearms-examination-unit-1" class="level2">
+<h2 class="anchored" data-anchor-id="laboratory-report-2-firearms-examination-unit-1">Laboratory Report 2: Firearms Examination Unit</h2>
+<p>The expected probability that the recovered firearm consistently produces the observed toolmark pattern is actually 90% compared to the prior estimate of 90%. We believe the true probability lies between 79.12% and 97.13% with 95% credibility.</p>
+</section>
+<section id="laboratory-report-3-criminal-intelligence-unit-1" class="level2">
+<h2 class="anchored" data-anchor-id="laboratory-report-3-criminal-intelligence-unit-1">Laboratory Report 3: Criminal Intelligence Unit</h2>
+<p>The average number of suspicious vehicles per day was originally thought to be 3. Our analysis shows the expected number of suspicious vehicles per day is 3.33 and we’re sure the true number of expected suspicious vehicles per day is between 2.03 and 4.95, with 95% credibility.</p>
+</section>
+<section id="laboratory-report-4-digital-forensics-unit-1" class="level2">
+<h2 class="anchored" data-anchor-id="laboratory-report-4-digital-forensics-unit-1">Laboratory Report 4: Digital Forensics Unit</h2>
+<p>The expected average number of messages between the two persons of interest was originally 5 but after our analysis of the data collected, it went up to 5.33. We believe the true average number of messages between the two persons of interest sits between 3.932 and 6.944, with 95% credibility.</p>
+</section>
+<section id="laboratory-report-5-office-of-the-medical-examiner-1" class="level2">
+<h2 class="anchored" data-anchor-id="laboratory-report-5-office-of-the-medical-examiner-1">Laboratory Report 5: Office of the Medical Examiner</h2>
+<p>Although the original assumption was that the expected time since death was 7 hours, but could vary greatly, our analysis showed the expected time since death was 7.869 hours with a vastly smaller variance. We also believe the true time since death is between 6.998 and 8.740 hours.</p>
+<ul>
+<li>A synthesis paragraph that steps back from the individual findings and addresses the evidence as a whole. What does the collection of analyses suggest about the circumstances surrounding Victor Holloway’s death? Where is the evidence strong and where does uncertainty remain?</li>
+</ul>
+<p>To sum up, the collection of analyses suggests the circumstances surrounding Victor Holloway’s death seem to all differ from each of their prior assumptions…some more than others. While all of the posterior means fell within their respective prior 95% credible interval, some of the posterior credible intervals were noticibly smaller. Some of the strongest evidence includes the accuracy of the new DNA reagent, while the area where some of the most uncertainty remains is the number of communications exchanged between the persons of interest.</p>
+<ul>
+<li>A closing statement reminding the investigator of the scope and limitations of this analysis. Your role as a statistical consultant is to quantify uncertainty, <strong>not</strong> to assign responsibility. Your report <strong>must not</strong> draw conclusions about the guilt or innocence of any individual.</li>
+</ul>
+<p>The purpose of this analysis is NOT to establish guilt, but to instead give a better idea of how much variance exists for each report, based on data provided.</p>
 <p>Finally, write in complete sentences and paragraphs (do not use bullet points in your submitted report).</p>
+</section>
 </section>
 
 </main>
