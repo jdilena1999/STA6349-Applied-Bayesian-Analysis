@@ -9,10 +9,10 @@ from plotting_functions import get_line_coordinates
 
 
 data = pd.read_csv("big_word_club.csv")
-#print(data.columns)
+print(data.columns)
 #print(data.head(10))
 #data = data[["school_id","score_pct_change"]][data["treat"]==1].dropna().reset_index()
-print(f"Schools: {', '.join([str(x) for x in list(set(data['school_id'].to_numpy()))])}")
+#print(f"Schools: {', '.join([str(x) for x in list(set(data['school_id'].to_numpy()))])}")
 print(f"Number of schools: {len(set(data['school_id'].to_numpy()))}")
 students_per_school = {
     "School":[],
@@ -23,6 +23,7 @@ for s in schools:
     students_per_school["School"].append(s)
     students_per_school["Number of Students"].append(len(set(data["participant_id"][data["school_id"].isin([s])].dropna().to_numpy())))
 print(pd.DataFrame(students_per_school))
+print(f"Variance between schools: {np.var(students_per_school['Number of Students'])}")
 #print(data)
 
 priors = {
