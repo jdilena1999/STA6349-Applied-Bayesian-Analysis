@@ -9,14 +9,20 @@ from plotting_functions import get_line_coordinates
 
 
 data = pd.read_csv("big_word_club.csv")
+data["school_id"] = data["school_id"].astype(str)
 print(data.columns)
 #print(data.head(10))
-#data = data[["school_id","score_pct_change"]][data["treat"]==1].dropna().reset_index()
+data_filtered = data[["school_id","score_pct_change"]][data["treat"]==1].dropna().reset_index()
 #print(f"Schools: {', '.join([str(x) for x in list(set(data['school_id'].to_numpy()))])}")
 print(f"Number of schools: {len(set(data['school_id'].to_numpy()))}")
 students_per_school = {
     "School":[],
     "Number of Students":[]
+}
+priors = {
+    "Intercept": bmb.Prior("Normal", mu=0, sigma=50),
+    "1|school_id": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=0.1)),
+    "sigma": bmb.Prior("Exponential", lam=0.1)
 }
 schools = sorted(list(set(data["school_id"].to_numpy())))
 for s in schools:
@@ -25,13 +31,14 @@ for s in schools:
 print(pd.DataFrame(students_per_school))
 print(f"Variance between schools: {np.var(students_per_school['Number of Students'])}")
 #print(data)
+model,idata = stan_glm("score_pct_change ~ 1 + (1|school_id)",data_filtered,priors=priors,plot=True,tidy=True)
 
-priors = {
+'''priors = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=2.5,auto_scale=True),
     "age": bmb.Prior("Normal", mu=0, sigma=2.5,auto_scale=True),
     "sigma": bmb.Prior("Exponential", lam=1,auto_scale=True),
     }
-running = pd.read_csv("cherry_blossom_sample.csv")[["runner","age","net"]].dropna()
+running = pd.read_csv("cherry_blossom_sample.csv")[["runner","age","net"]].dropna()'''
 #print(running[running.isna().any(axis=1)])
 '''sns.scatterplot(data=running,x="age",y="net")
 plt.show()'''

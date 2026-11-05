@@ -21,12 +21,21 @@ def tidy(idata, var_names, conf_level=0.95):
     
     return pd.DataFrame(rows)
 
-def stan_glm(y_modeled_over_x:str,data:pd.DataFrame,priors:dict,family="gaussian",chains=4,iter=5_000*2,seed=84735,conf_level = 0.95) -> bmb.Model:
+def stan_glm(y_modeled_over_x:str,data:pd.DataFrame,priors:dict,family="gaussian",chains=4,iter=5_000*2,seed=84735,conf_level = 0.95,**kwargs) -> bmb.Model:
     model = bmb.Model(y_modeled_over_x,data=data,family=family,priors=priors)
     idata = model.fit(draws=int(iter/2),tune=int(iter/2),random_seed=seed)
     estimate_df = tidy(idata,list(priors.keys()),conf_level)
-    print(estimate_df)
-    return model
+    if kwargs.get("tidy"):
+        print(estimate_df)
+    if kwargs.get("plot"):
+        print(az.summary(idata, var_names=["Intercept", "1|school_id_sigma", "sigma"]))
+        az.plot_trace(idata, var_names=["Intercept", "1|school_id_sigma", "sigma"])
+        az.plot_forest(idata, var_names=["1|school_id"], combined=True, r_hat=True)
+        '''print(az.summary(idata, var_names=["Intercept", "1|school_id", "sigma"]))
+        az.plot_trace(idata, var_names=["Intercept", "1|school_id", "sigma"])
+        az.plot_forest(idata, var_names=["1|school_id"], combined=True, r_hat=True)'''
+        plt.show()
+    return model,idata
 if __name__ == "__main__":
     df = pd.read_csv("bikes.csv")
     #print(df.head())
