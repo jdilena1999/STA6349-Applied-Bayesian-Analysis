@@ -44,6 +44,14 @@ def tidy(idata, var_names, conf_level=0.95):
     return pd.DataFrame(rows)'''
 
 def stan_glm(y_modeled_over_x:str,data:pd.DataFrame,priors:dict,family="gaussian",chains=4,iter=5_000*2,seed=84735,conf_level = 0.95,**kwargs) -> tuple:
+
+    import bambi as bmb
+    import arviz as az
+    import pandas as pd
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import seaborn as sns
+
     model = bmb.Model(y_modeled_over_x,data=data,family=family,priors=priors)
     idata = model.fit(draws=int(iter/2),tune=int(iter/2),random_seed=seed)
     estimate_df = tidy(idata,list(priors.keys()),conf_level)
