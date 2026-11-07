@@ -10,7 +10,7 @@ from plotting_functions import get_line_coordinates
 
 data = pd.read_csv("big_word_club.csv")
 data["school_id"] = data["school_id"].astype(str)
-print(data.columns)
+#print(data.columns)
 #print(data.head(10))
 data_filtered = data[["school_id","score_pct_change"]][data["treat"]==1].dropna().reset_index()
 #print(f"Schools: {', '.join([str(x) for x in list(set(data['school_id'].to_numpy()))])}")
@@ -31,7 +31,7 @@ for s in schools:
 print(pd.DataFrame(students_per_school))
 print(f"Variance between schools: {np.var(students_per_school['Number of Students'])}")
 #print(data)
-model,idata = stan_glm("score_pct_change ~ 1 + (1|school_id)",data_filtered,priors=priors,plot=True,tidy=True)
+model,idata = stan_glm("score_pct_change ~ (1|school_id)",data_filtered,priors=priors,plot=True,tidy=True)
 
 '''priors = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=2.5,auto_scale=True),
