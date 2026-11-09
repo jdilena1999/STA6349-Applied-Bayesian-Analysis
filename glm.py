@@ -51,22 +51,44 @@ def stan_glm(y_modeled_over_x:str,data:pd.DataFrame,priors:dict,family="gaussian
     import numpy as np
     import matplotlib.pyplot as plt
     import seaborn as sns
+    def mad_sd(x):
+        med = np.median(x)
+        return 1.4826 * np.median(np.abs(x - med))
 
     model = bmb.Model(y_modeled_over_x,data=data,family=family,priors=priors)
     idata = model.fit(draws=int(iter/2),tune=int(iter/2),random_seed=seed)
-    estimate_df = tidy(idata,list(priors.keys()),conf_level)
     v_names = [x for x in list(priors.keys())]
+    v_name_target = [str(x)+"_sigma" for x in v_names if str(x).__contains__("1|")]
+    v_names = v_names + v_name_target
+    summary = az.summary(
+    idata,
+    var_names=["Intercept", "1|school_id", "1|school_id_sigma", "sigma"],
+    stat_funcs={
+        "estimate": np.median,
+        "std.error": mad_sd,
+        "conf.low": lambda x: np.quantile(x, 0.025),
+        "conf.high": lambda x: np.quantile(x, 0.975),
+    },
+    extend=False,   # drop the default mean/sd/hdi/ess/r_hat columns
+)
+
+    estimate_df = tidy(idata,v_names,conf_level)
+    between = estimate_df["estimate"][estimate_df["term"]==v_name_target[0]].values[0]
+    within = estimate_df["estimate"][estimate_df["term"]=="sigma"].values[0]
+    icc = between**2/((between**2)+(within**2))
+    #print(v_names)
     if kwargs.get("tidy"):
         print(estimate_df)
+        print(summary)
+        print(f"ICC = {icc}")
     if kwargs.get("plot"):
-        print(az.summary(idata, var_names=v_names))
         az.plot_trace(idata, var_names=v_names)
         az.plot_forest(idata, var_names=[x for x in v_names if x not in ("Intercept","sigma")], combined=True, r_hat=True)
         '''print(az.summary(idata, var_names=v_names))
         az.plot_trace(idata, var_names=v_names)
         az.plot_forest(idata, var_names=v_names-["Intercept","sigma"], combined=True, r_hat=True)'''
         plt.show()
-    return model,idata
+    return model,idata,estimate_df
 if __name__ == "__main__":
     df = pd.read_csv("bikes.csv")
     #print(df.head())

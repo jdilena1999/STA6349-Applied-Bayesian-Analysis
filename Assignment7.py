@@ -28,21 +28,23 @@ plt.title(f"Mean: {round(mean,4)}\nSD: {round(std,4)}")
 #plt.legend()
 plt.show()'''
 
-'''priors_1 = {
+priors_1 = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=50),
     "1|school_id": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=0.1)),
     "sigma": bmb.Prior("Exponential", lam=0.1)
 }
-model,idata = stan_glm("score_pct_change ~ 1 + (1 | school_id)",data=data,priors=priors_1,tidy=True,plot=True)
-'''
-'''priors2 = {
+print("Model 1")
+model1,idata1,tidy1 = stan_glm("score_pct_change ~ 1 + (1 | school_id)",data=data,priors=priors_1,tidy=True)
+
+priors2 = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=50),
     "1|school_id": bmb.Prior("Normal", mu=0, sigma=bmb.Prior("Exponential", lam=0.1)),
     "special_ed_observed":bmb.Prior("Normal",mu=0,sigma=1),
     "sigma": bmb.Prior("Exponential", lam=0.1)
 }
-model,idata = stan_glm("score_pct_change ~ special_ed_observed + (1 | school_id)",data=data,priors=priors2,tidy=True,plot=True)
-'''
+print("Model 2")
+model2,idata2,tidy2 = stan_glm("score_pct_change ~ special_ed_observed + (1 | school_id)",data=data,priors=priors2,tidy=True)
+
 
 priors3 = {
     "Intercept": bmb.Prior("Normal", mu=0, sigma=50),
@@ -51,4 +53,11 @@ priors3 = {
     "treat": bmb.Prior("Normal", mu=0, sigma=10),
     "sigma": bmb.Prior("Exponential", lam=0.1)
 }
-model,idata = stan_glm("score_pct_change ~ treat + special_ed_observed + (1 | school_id)",data=data,priors=priors3,tidy=True,plot=True)
+print("Model 3")
+model3,idata3,tidy3 = stan_glm("score_pct_change ~ treat + special_ed_observed + (1 | school_id)",data=data,priors=priors3,tidy=True)
+
+print(f'M1 Credible Intervals\n{tidy1[["term","conf.low","conf.high"]]}')
+
+print(f'M12 Credible Intervals\n{tidy2[["term","conf.low","conf.high"]]}')
+
+print(f'M3 Credible Intervals\n{tidy3[["term","conf.low","conf.high"]]}')
